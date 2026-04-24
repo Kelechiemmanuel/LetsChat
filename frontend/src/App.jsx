@@ -1,63 +1,28 @@
-import React, { useState } from 'react'
-import { useEffect } from 'react';
-import axios from 'axios';
+import Login from "./component/Login";
+import Chat from "./component/Chat";
+import Register from "./component/Register";
+import { Routes, Route, Navigate, BrowserRouter } from "react-router-dom";
 
 const App = () => {
-  const [messages, setMessages] = useState([]);
-  // const[sender, setSender] = useState('Joshua');
-  const [content, setContent] = useState('');
+  const token = localStorage.getItem("token");
 
-  const fetchData = async () => {
-    try {
-      const response = await axios.get('http://localhost:3001/messages', {
-        headers: { Authorization: token }
-      });
-      setMessages(response.data)
-    } catch (error) {
-      console.log(error.response?.data || error.message);
-    }
-  };
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-
-    if (!token) {
-      window.location.href = '/login';
-      return;
-    }
-    fetchData();
-  }, []);
-
-  const sendMessages = async () => {
-    if (!content) return;
-    try {
-      const token = localStorage.getItem("token")
-      await axios.post('http://localhost:3001/messages',
-        { content },
-        { headers: { Authorization: token } }
-      );
-    } catch (error) {
-      console.log(error.response?.data || error.message);
-    }
-    fetchData();
-    setContent('');
-  }
   return (
-    <div>
-      <h1>CHAT</h1>
-      {messages.map((msg) => (
-        <div key={msg.id}>
-          <h1>{msg.sender}</h1>
-          <p>{msg.content}</p>
-        </div>
-      ))}
+    <BrowserRouter>
+      <Routes>
+      {/* root redirect logic */}
+      <Route path="/" element={token ? <Navigate to="/chat" /> : <Navigate to="/login" /> }
+      />
 
-      <div>
-        {/* <input type="text" value={sender} onChange={(e) => setSender(e.target.value)} /> */}
-        <input value={content} onChange={(e) => setContent(e.target.value)} placeholder='Write' />
-        <button onClick={sendMessages}>Send</button>
-      </div>
-    </div>
-  )
-}
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
 
-export default App
+      <Route
+        path="/chat"
+        element={token ? <Chat /> : <Navigate to="/login" />}
+      />
+    </Routes>
+    </BrowserRouter>
+  );
+};
+
+export default App;

@@ -12,21 +12,20 @@ app.use(cors());
 app.use(express.json());
 
 const authToken = (req, res, next) => {
-    const token = req.headers.authorization;
+    const authHeader = req.headers.authorization;
 
-    if(!token){
-        return res.status(401).json({
-            error: 'no token provided'
-        });
+    if (!authHeader) {
+        return res.status(401).json({ error: "no token provided" });
     }
+
+    const token = authHeader.split(" ")[1]; // 👈 THIS FIXES IT
+
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.user = decoded;
         next();
     } catch (error) {
-        return res.status(401).json({
-            error: 'Invalid token'
-        })
+        return res.status(401).json({ error: "Invalid token" });
     }
 };
 
@@ -44,7 +43,7 @@ app.get('/messages', authToken, async (req, res) => {
         res.json(result.rows);
     } catch (error) {
         console.log(error);
-
+        res.status(500).json({ error: "Failed to fetch messages" });
     } finally {
         client.release();
     }
@@ -107,9 +106,7 @@ app.post('/register', async (req, res) => {
         res.status(400).json({
             error: 'User already exist'
         });
-        res.status(500).json({
-            error: 'Internal server error'
-        });
+    
 
     };
 });

@@ -2,15 +2,19 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  // const [success, setSuccess] = useState("");
+  const [success, setSuccess] = useState("");
+
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
+
+    setError("");
+    setSuccess("");
 
     if (!email || !password) {
       setError("Email and password are required");
@@ -18,38 +22,33 @@ const Login = () => {
     }
 
     try {
-      const res = await axios.post("http://localhost:3001/login", {
+      await axios.post("http://localhost:3001/register", {
         email,
         password,
       });
 
-      console.log("LOGIN RESPONSE:", res.data);
+      setSuccess("Account created successfully");
 
-      const token = res.data.token;
+      setTimeout(() => {
+        navigate("/login");
+      }, 1500);
 
-      if (!token) {
-        console.log("No token returned from backend");
-        return;
-      }
-
-      localStorage.setItem("token", token);
-
-      console.log("TOKEN SAVED:", localStorage.getItem("token"));
-
-      navigate("/chat");
     } catch (err) {
-      setError("Invalid email or password");
-      console.log(err.response?.data || err.message);
-      console.log("User not found");
-
+      setError(err.response?.data?.error || "Registration failed");
     }
   };
 
   return (
     <div className="bg-gray-400 h-screen flex justify-center items-center">
-      <form onSubmit={handleLogin} className="bg-blue-500 flex flex-col gap-4 p-10">
-        <h1>Login</h1>
-        <p className="text-red-400">{error}</p>
+      <form
+        onSubmit={handleRegister}
+        className="bg-blue-500 flex flex-col gap-4 p-10"
+      >
+        <h1>Register</h1>
+
+        {error && <p className="text-red-500">{error}</p>}
+        {success && <p className="text-green-500">{success}</p>}
+
         <input
           type="email"
           placeholder="Email"
@@ -64,13 +63,16 @@ const Login = () => {
           className="border rounded px-3 py-2"
         />
 
-        <button type="submit" className="border rounded py-2">Login</button>
-        <button onClick={() => navigate("/register")}>
-          Don't have an account? Sign up
+        <button type="submit" className="border rounded py-2">
+          Register
+        </button>
+
+        <button type="button" onClick={() => navigate("/login")}>
+          Already have an account? Login
         </button>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default Register;
