@@ -23,6 +23,7 @@ const Login = () => {
         password,
       });
 
+       navigate("/chat");
       console.log("LOGIN RESPONSE:", res.data);
 
       const token = res.data.token;
@@ -36,7 +37,6 @@ const Login = () => {
 
       console.log("TOKEN SAVED:", localStorage.getItem("token"));
 
-      navigate("/chat");
     } catch (err) {
       setError("Invalid email or password");
       console.log(err.response?.data || err.message);
