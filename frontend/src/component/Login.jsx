@@ -18,25 +18,24 @@ const Login = () => {
     }
 
     try {
-      const res = await axios.post("http://localhost:3001/login", {
+      const res = await axios.post("https://letschat-xmph.onrender.com/login", {
         email,
         password,
       });
 
-       navigate("/chat");
       console.log("LOGIN RESPONSE:", res.data);
 
-      const token = res.data.token;
-
-      if (!token) {
-        console.log("No token returned from backend");
+      if (!res.data?.token) {
+        setError("Login failed: no token returned");
         return;
       }
 
-      localStorage.setItem("token", token);
+      localStorage.setItem("token", res.data.token);
 
-      console.log("TOKEN SAVED:", localStorage.getItem("token"));
+      console.log("TOKEN SAVED");
 
+
+      navigate("/chat");
     } catch (err) {
       setError("Invalid email or password");
       console.log(err.response?.data || err.message);
