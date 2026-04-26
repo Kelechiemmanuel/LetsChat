@@ -22,7 +22,7 @@ const Register = () => {
     }
 
     try {
-      await axios.post("https://letschat-xmph.onrender.com", {
+      await axios.post("https://letschat-xmph.onrender.com/register", {
         email,
         password,
       });

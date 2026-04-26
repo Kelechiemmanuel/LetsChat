@@ -18,7 +18,7 @@ const Login = () => {
     }
 
     try {
-      const res = await axios.post("https://letschat-xmph.onrender.com", {
+      const res = await axios.post("https://letschat-xmph.onrender.com/login", {
         email,
         password,
       });
