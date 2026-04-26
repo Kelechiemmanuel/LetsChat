@@ -36,7 +36,7 @@ const pool = new Pool({
     }
 })
 
-app.get('/messages', authToken, async (req, res) => {
+app.get('/', authToken, async (req, res) => {
     const client = await pool.connect();
     try {
         const result = await client.query("SELECT * FROM messages");
