@@ -38,9 +38,8 @@ const Login = () => {
 
       navigate("/chat");
     } catch (err) {
-      setError("Invalid email or password");
-      console.log(err.response?.data || err.message);
-      console.log("User not found");
+      console.log("FULL ERROR:", err.response?.data);
+  setError(err.response?.data?.error || "Something went wrong");
 
     }
   };
