@@ -36,6 +36,10 @@ const pool = new Pool({
     }
 })
 
+app.get('/', (req, res) => {
+    res.send('Hello Node js')
+})
+
 app.get('/messages', authToken, async (req, res) => {
     const client = await pool.connect();
     try {
