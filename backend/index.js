@@ -36,7 +36,7 @@ const pool = new Pool({
     }
 })
 
-app.get('/', authToken, async (req, res) => {
+app.get('/', (req, res) => {
     const client = await pool.connect();
     try {
         const result = await client.query("SELECT * FROM messages");
@@ -91,24 +91,42 @@ app.post('/login', async (req, res) => {
 });
 
 app.post('/register', async (req, res) => {
-    const { email, password } = req.body;
-    if (!email || !password) {
-        return res.json({
-            error: 'Email and password are required'
-        })
-    }
-    try {
-        const hashedPassword = await bcrypt.hash(password, 10);
-        await pool.query('INSERT INTO users (email, password) VALUES ($1, $2)', [email, hashedPassword]);
-        res.json({ message: 'User created' });
-    } catch (error) {
-        console.error("REGISTER ERROR:", error.message);
-        res.status(400).json({
-            error: 'User already exist'
-        });
-    
+  const { email, password } = req.body;
 
-    };
+  if (!email || !password) {
+    return res.status(400).json({
+      error: 'Email and password are required'
+    });
+  }
+
+  try {
+    const existingUser = await pool.query(
+      'SELECT * FROM users WHERE email = $1',
+      [email]
+    );
+
+    if (existingUser.rows.length > 0) {
+      return res.status(400).json({
+        error: 'User already exists'
+      });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    await pool.query(
+      'INSERT INTO users (email, password) VALUES ($1, $2)',
+      [email, hashedPassword]
+    );
+
+    res.json({ message: 'User created' });
+
+  } catch (error) {
+    console.error("REGISTER ERROR:", error.message);
+
+    res.status(500).json({
+      error: error.message
+    });
+  }
 });
 
 
