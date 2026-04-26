@@ -18,7 +18,7 @@ const Login = () => {
     }
 
     try {
-      const res = await axios.post("https://letschat-xmph.onrender.com/login", {
+      const res = await axios.post("http://localhost:3001/login", {
         email,
         password,
       });
@@ -38,8 +38,9 @@ const Login = () => {
 
       navigate("/chat");
     } catch (err) {
-      console.log("FULL ERROR:", err.response?.data);
-  setError(err.response?.data?.error || "Something went wrong");
+      setError("Invalid email or password");
+      console.log(err.response?.data || err.message);
+      console.log("User not found");
 
     }
   };
