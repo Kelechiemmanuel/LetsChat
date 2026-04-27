@@ -22,7 +22,7 @@ const Register = () => {
     }
 
     try {
-      await axios.post("http://localhost:3001/register", {
+      await axios.post("https://letschat-xmph.onrender.com/register", {
         email,
         password,
       });
@@ -66,11 +66,10 @@ const Register = () => {
         <button type="submit" className="border rounded py-2">
           Register
         </button>
-
-        <button type="button" onClick={() => navigate("/login")}>
+      </form>
+           <button type="button" onClick={() => navigate("/login")}>
           Already have an account? Login
         </button>
-      </form>
     </div>
   );
 };
