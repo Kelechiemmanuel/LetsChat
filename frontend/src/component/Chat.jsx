@@ -32,22 +32,22 @@ const Chat = () => {
     getMessages();
   }, []);
 
-const getMessages = async (token) => {
-  try {
-    const res = await axios.get(
-      "https://letschat-lqqq.onrender.com/messages",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+  const sendMessage = async () => {
+    try {
+      const token = localStorage.getItem("token");
 
-    setMessages(res.data);
-  } catch (err) {
-    console.log(err.response?.data || err.message);
-  }
-};
+      await axios.post(
+        "https://letschat-lqqq.onrender.com/messages",
+        { content },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      setContent("");
+      getMessages();
+    } catch (err) {
+      console.log(err.response?.data || err.message);
+    }
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
