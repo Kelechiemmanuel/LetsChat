@@ -75,8 +75,10 @@ const Login = () => {
           </button>
         </div>
 
-        <button type="submit" className="border rounded py-2">Login</button>
-        <button type="button" onClick={() => navigate("/register")}>
+        <button type="submit" className="border rounded py-2 cursor-pointer">
+          Login
+        </button>
+        <button type="button" onClick={() => navigate("/register")} className="cursor-pointer">
           Don't have an account? Sign up
         </button>
       </form>

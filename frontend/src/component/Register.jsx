@@ -75,10 +75,10 @@ const Register = () => {
             {showPassword ? "🙈" : "👁️"}
           </button>
         </div>
-        <button type="submit" className="border rounded py-2">
+        <button type="submit" className="border rounded py-2 cursor-pointer">
           Register
         </button>
-           <button type="button" onClick={() => navigate("/login")}>
+           <button type="button" onClick={() => navigate("/login")} className="cursor-pointer">
           Already have an account? Login
         </button>
       </form>

@@ -61,23 +61,31 @@ const Chat = () => {
   };
 
   return (
-    <div>
-      <h1>Chat</h1>
-      <button onClick={handleLogout}>Logout</button>
-      {messages.map((msg) => (
-        <div key={msg.id}>
-          <b>{msg.sender}</b>
-          <p>{msg.content}</p>
-        </div>
-      ))}
+    <div className="w-full bg-gray-400 flex justify-center items-center h-screen">
+    <div className="flex flex-col justify-center items-center gap-5 w-100 bg-white mx-auto h-auto py-5 px-3 rounded-sm">
+      <div className="flex justify-between items-center bg-gray-600 w-full px-3 py-2 rounded-sm">
+        <h1>Let's Chat</h1>
+        <button onClick={handleLogout} className="cursor-pointer">Logout</button>
+      </div>
+      <div className="">
+        {messages.map((msg) => (
+          <div key={msg.id}>
+            <b>{msg.sender}</b>
+            <p className="">{msg.content}</p>
+          </div>
+        ))}
+      </div>
 
-      <input
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        placeholder="Message..."
-      />
+      <div className="flex justify-between items-center">
+        <input
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          placeholder="Message..." className="outline-0"
+        />
 
-      <button onClick={sendMessage}>Send</button>
+        <button onClick={sendMessage} className="cursor-pointer">Send</button>
+      </div>
+    </div>
     </div>
   );
 };
