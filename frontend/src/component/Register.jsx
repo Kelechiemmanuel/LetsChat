@@ -7,8 +7,6 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [name, setName] = useState("");
 
   const navigate = useNavigate();
 
@@ -18,14 +16,13 @@ const Register = () => {
     setError("");
     setSuccess("");
 
-    if (!name || !email || !password) {
-      setError("Name, email and password are required");
+    if (!email || !password) {
+      setError("Email and password are required");
       return;
     }
 
     try {
       await axios.post("https://letschat-lqqq.onrender.com/register", {
-        name,
         email,
         password,
       });
@@ -52,21 +49,16 @@ const Register = () => {
         {error && <p className="text-red-500">{error}</p>}
         {success && <p className="text-green-500">{success}</p>}
 
-        <input
-          type="text"
-          placeholder="Name"
-          onChange={(e) => setName(e.target.value)}
-          className="border rounded px-3 py-2 outline-0"
-        />
+           <div>
+          <input
+            type="email"
+            placeholder="Email"
+            onChange={(e) => setEmail(e.target.value)}
+            className="border rounded px-6 py-2 outline-0"
+          />
+        </div>
 
-        <input
-          type="email"
-          placeholder="Email"
-          onChange={(e) => setEmail(e.target.value)}
-          className="border rounded px-3 py-2"
-        />
-
-       <div className="flex justify-between items-center border rounded px-3 py-2">
+        <div className="flex justify-between items-center border rounded px-3 py-2">
           <input
             type={showPassword ? "text" : "password"}
             placeholder="Password"
@@ -81,14 +73,13 @@ const Register = () => {
             {showPassword ? "🙈" : "👁️"}
           </button>
         </div>
-
         <button type="submit" className="border rounded py-2">
           Register
         </button>
       </form>
-      <button type="button" onClick={() => navigate("/login")}>
-        Already have an account? Login
-      </button>
+           <button type="button" onClick={() => navigate("/login")}>
+          Already have an account? Login
+        </button>
     </div>
   );
 };
