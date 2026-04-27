@@ -14,7 +14,7 @@ app.use(express.json());
 const authToken = (req, res, next) => {
     const authHeader = req.headers.authorization;
 
-    console.log("FULL HEADER:", authHeader); // 👈 ADD THIS
+    console.log("FULL HEADER:", authHeader);
 
     if (!authHeader) {
         return res.status(401).json({ error: "no token provided" });
@@ -22,14 +22,14 @@ const authToken = (req, res, next) => {
 
     const token = authHeader.split(" ")[1];
 
-    console.log("EXTRACTED TOKEN:", token); // 👈 ADD THIS
+    console.log("EXTRACTED TOKEN:", token); 
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.user = decoded;
         next();
     } catch (error) {
-        console.log("JWT ERROR:", error.message); // 👈 ADD THIS
+        console.log("JWT ERROR:", error.message);
         return res.status(401).json({ error: "Invalid token" });
     }
 };

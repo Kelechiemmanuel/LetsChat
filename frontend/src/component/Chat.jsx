@@ -49,10 +49,15 @@ const Chat = () => {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
   return (
     <div>
       <h1>Chat</h1>
-
+      <button onClick={handleLogout}>Logout</button>
       {messages.map((msg) => (
         <div key={msg.id}>
           <b>{msg.sender}</b>
