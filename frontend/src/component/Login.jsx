@@ -63,7 +63,7 @@ const Login = () => {
         />
 
         <button type="submit" className="border rounded py-2">Login</button>
-        <button onClick={() => navigate("/register")}>
+        <button type="button" onClick={() => navigate("/register")}>
           Don't have an account? Sign up
         </button>
       </form>
