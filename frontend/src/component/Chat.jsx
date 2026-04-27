@@ -9,7 +9,8 @@ const Chat = () => {
 
   const getMessages = async () => {
     try {
-        const token = localStorage.getItem("token")
+      const token = localStorage.getItem("token");
+      console.log("TOKEN:", token);
       const res = await axios.get("https://letschat-xmph.onrender.com/messages", {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -21,14 +22,14 @@ const Chat = () => {
   };
 
   useEffect(() => {
-      const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
-      if (!token) {
-        navigate("/login");
-        console.log("No token");
-        return;
-      }
-        getMessages();
+    if (!token) {
+      navigate("/login");
+      console.log("No token");
+      return;
+    }
+    getMessages();
   }, []);
 
   const sendMessage = async () => {
