@@ -7,19 +7,22 @@ const Chat = () => {
   const [content, setContent] = useState("");
   const navigate = useNavigate();
 
-  const getMessages = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      console.log("TOKEN:", token);
-      const res = await axios.get("https://letschat-lqqq.onrender.com/messages", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+const getMessages = async (token) => {
+  try {
+    const res = await axios.get(
+      "https://letschat-lqqq.onrender.com/messages",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
-      setMessages(res.data);
-    } catch (err) {
-      console.log(err.response?.data || err.message);
-    }
-  };
+    setMessages(res.data);
+  } catch (err) {
+    console.log(err.response?.data || err.message);
+  }
+};
 
   useEffect(() => {
     const token = localStorage.getItem("token");
