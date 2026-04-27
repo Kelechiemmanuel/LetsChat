@@ -6,7 +6,9 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const [visible, setVisible] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -48,19 +50,32 @@ const Login = () => {
       <form onSubmit={handleLogin} className="bg-blue-500 flex flex-col gap-4 p-10">
         <h1>Login</h1>
         <p className="text-red-400">{error}</p>
-        <input
-          type="email"
-          placeholder="Email"
-          onChange={(e) => setEmail(e.target.value)}
-          className="border rounded px-3 py-2"
-        />
 
-        <input
-          type="password"
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-          className="border rounded px-3 py-2"
-        />
+        <div>
+          <input
+            type="email"
+            placeholder="Email"
+            onChange={(e) => setEmail(e.target.value)}
+            className="border rounded px-3 py-2"
+          />
+        </div>
+
+        <div className="flex justify-between items-center border rounded px-3 py-2">
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+            className="outline-0"
+          />
+
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="text-sm text-blue-500 hover:underline"
+          >
+            {showPassword ? "Hide" : "Show"}
+          </button>
+        </div>
 
         <button type="submit" className="border rounded py-2">Login</button>
         <button type="button" onClick={() => navigate("/register")}>

@@ -7,6 +7,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [visible, setVisible] = useState(false);
 
   const navigate = useNavigate();
 
@@ -57,11 +58,12 @@ const Register = () => {
         />
 
         <input
-          type="password"
+          type={visible ? 'text' : 'password'}
           placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
           className="border rounded px-3 py-2"
         />
+        <input type="checkbox" checked={visible} onChange={() => setVisible(!visible)} className="bg-black" />
 
         <button type="submit" className="border rounded py-2">
           Register
