@@ -1,7 +1,7 @@
 import Login from "./component/Login";
 import Chat from "./component/Chat";
 import Register from "./component/Register";
-import { Routes, Route, Navigate, BrowserRouter, HashRouter } from "react-router-dom";
+import { Routes, Route, Navigate, HashRouter } from "react-router-dom";
 
 const App = () => {
   const token = localStorage.getItem("token");
