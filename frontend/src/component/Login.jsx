@@ -8,7 +8,6 @@ const Login = () => {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  // const [visible, setVisible] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -50,13 +49,6 @@ const Login = () => {
       <form onSubmit={handleLogin} className="bg-blue-500 flex flex-col gap-4 p-10">
         <h1>Login</h1>
         <p className="text-red-400">{error}</p>
-
-        <input
-          type="text"
-          placeholder="Name"
-          onChange={(e) => setName(e.target.value)}
-          className="border rounded px-3 py-2 outline-0"
-        />
 
         <div>
           <input
