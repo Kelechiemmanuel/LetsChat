@@ -30,6 +30,12 @@ const Chat = () => {
       return;
     }
     getMessages();
+
+    const interval = setInterval(() => {
+      getMessages();
+
+      return () => clearInterval(interval);
+    }, 30000);
   }, []);
 
   const sendMessage = async () => {
