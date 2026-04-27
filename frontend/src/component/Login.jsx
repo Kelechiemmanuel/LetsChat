@@ -6,7 +6,6 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  // const [success, setSuccess] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -18,7 +17,7 @@ const Login = () => {
     }
 
     try {
-      const res = await axios.post("http://localhost:3001/login", {
+      const res = await axios.post("https://letschat-xmph.onrender.com/login", {
         email,
         password,
       });
