@@ -11,7 +11,7 @@ const Chat = () => {
     try {
       const token = localStorage.getItem("token");
       console.log("TOKEN:", token);
-      const res = await axios.get("https://letschat-xmph.onrender.com/messages", {
+      const res = await axios.get("https://letschat-lqqq.onrender.com/messages", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -37,7 +37,7 @@ const Chat = () => {
       const token = localStorage.getItem("token");
 
       await axios.post(
-        "https://letschat-xmph.onrender.com/messages",
+        "https://letschat-lqqq.onrender.com/messages",
         { content },
         { headers: { Authorization: `Bearer ${token}` } }
       );
