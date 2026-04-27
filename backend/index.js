@@ -61,7 +61,7 @@ app.get('/messages', authToken, async (req, res) => {
 app.post('/messages', authToken, async (req, res) => {
     const { content } = req.body;
     try {
-        const result = await pool.query("INSERT INTO messages (sender, content) VALUES ($1, $2) RETURNING *", [req.user.email, content]);
+        const result = await pool.query("INSERT INTO messages (sender, content) VALUES ($1, $2) RETURNING *", [req.user.name, content]);
         res.json(result.rows[0])
     } catch (error) {
         console.log(error);
@@ -84,7 +84,7 @@ app.post('/login', async (req, res) => {
         });
 
         const token = jwt.sign(
-            { id: user.id, email: user.email },
+            { id: user.id, name: user.name, email: user.email },
             process.env.JWT_SECRET,
             { expiresIn: '1d' }
         );
@@ -100,15 +100,15 @@ app.post('/login', async (req, res) => {
 });
 
 app.post('/register', async (req, res) => {
-    const { email, password } = req.body;
-    if (!email || !password) {
+    const { name, email, password } = req.body;
+    if (!name || !email || !password) {
         return res.json({
-            error: 'Email and password are required'
+            error: 'Name, email and password are required'
         })
     }
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
-        await pool.query('INSERT INTO users (email, password) VALUES ($1, $2)', [email, hashedPassword]);
+        await pool.query('INSERT INTO users (name, email, password) VALUES ($1, $2, $3)', [name, email, hashedPassword]);
         res.json({ message: 'User created' });
     } catch (error) {
         console.error("REGISTER ERROR:", error.message);

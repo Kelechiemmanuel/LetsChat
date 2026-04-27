@@ -8,7 +8,7 @@ const Login = () => {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  const [visible, setVisible] = useState(false);
+  // const [visible, setVisible] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -51,12 +51,19 @@ const Login = () => {
         <h1>Login</h1>
         <p className="text-red-400">{error}</p>
 
+        <input
+          type="text"
+          placeholder="Name"
+          onChange={(e) => setName(e.target.value)}
+          className="border rounded px-3 py-2 outline-0"
+        />
+
         <div>
           <input
             type="email"
             placeholder="Email"
             onChange={(e) => setEmail(e.target.value)}
-            className="border rounded px-3 py-2"
+            className="border rounded px-6 py-2 outline-0"
           />
         </div>
 
@@ -64,16 +71,15 @@ const Login = () => {
           <input
             type={showPassword ? "text" : "password"}
             placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
-            className="outline-0"
+            onChange={(e) => setPassword(e.target.value)} className="outline-0"
           />
 
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className="text-sm text-blue-500 hover:underline"
+            className="text-white text-sm outline-0"
           >
-            {showPassword ? "Hide" : "Show"}
+            {showPassword ? "🙈" : "👁️"}
           </button>
         </div>
 
