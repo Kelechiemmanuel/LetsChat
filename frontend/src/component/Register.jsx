@@ -41,6 +41,7 @@ const Register = () => {
 
   return (
     <div className="bg-gray-400 h-screen flex justify-center items-center">
+
       <form
         onSubmit={handleRegister}
         className="bg-blue-500 flex flex-col gap-4 p-10"
@@ -77,10 +78,10 @@ const Register = () => {
         <button type="submit" className="border rounded py-2">
           Register
         </button>
-      </form>
            <button type="button" onClick={() => navigate("/login")}>
           Already have an account? Login
         </button>
+      </form>
     </div>
   );
 };
